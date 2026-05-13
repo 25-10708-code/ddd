@@ -49,7 +49,8 @@ if btn:
     ### 🎧 {recommendation['title']}
     **아티스트:** {recommendation['artist']}
     """)
-    
+
+
     # 유튜브 검색 링크 제공 (편의성)
     search_url = f"https://www.youtube.com/results?search_query={recommendation['title']}+{recommendation['artist']}"
     st.link_button("유튜브에서 들어보기", search_url)
