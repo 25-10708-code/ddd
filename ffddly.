@@ -1,0 +1,58 @@
+import streamlit as st
+import random
+
+# 1. 앱 제목 및 레이아웃 설정
+st.set_page_config(page_title="나만의 음악 추천기", page_icon="🎵")
+st.title("🎵 AI(인 척하는) 음악 추천 서비스")
+st.subheader("오늘의 기분에 맞춰 장르를 골라보세요!")
+
+# 2. 음악 데이터베이스 (간단한 예시)
+music_data = {
+    "K-POP": [
+        {"title": "Ditto", "artist": "NewJeans"},
+        {"title": "Love Lee", "artist": "AKMU"},
+        {"title": "Seven", "artist": "Jungkook"}
+    ],
+    "Pop": [
+        {"title": "Cruel Summer", "artist": "Taylor Swift"},
+        {"title": "Vampire", "artist": "Olivia Rodrigo"},
+        {"title": "Stay", "artist": "The Kid LAROI & Justin Bieber"}
+    ],
+    "Jazz/Lo-fi": [
+        {"title": "Fly Me To The Moon", "artist": "Frank Sinatra"},
+        {"title": "Lullaby", "artist": "Oscar Peterson"},
+        {"title": "Coffee", "artist": "Beabadoobee"}
+    ],
+    "Rock": [
+        {"title": "Bohemian Rhapsody", "artist": "Queen"},
+        {"title": "Believer", "artist": "Imagine Dragons"},
+        {"title": "Smells Like Teen Spirit", "artist": "Nirvana"}
+    ]
+}
+
+# 3. 사용자 인터페이스(UI) 구성
+with st.sidebar:
+    st.header("설정")
+    genre = st.selectbox("어떤 장르를 듣고 싶나요?", list(music_data.keys()))
+    btn = st.button("추천 받기!")
+
+# 4. 추천 로직 실행
+if btn:
+    # 선택한 장르에서 무작위로 하나 추출
+    recommendation = random.choice(music_data[genre])
+    
+    st.balloons() # 축하 효과
+    st.success(f"당신을 위한 추천곡입니다!")
+    
+    # 추천 결과 표시 카드 형태
+    st.markdown(f"""
+    ### 🎧 {recommendation['title']}
+    **아티스트:** {recommendation['artist']}
+    """)
+    
+    # 유튜브 검색 링크 제공 (편의성)
+    search_url = f"https://www.youtube.com/results?search_query={recommendation['title']}+{recommendation['artist']}"
+    st.link_button("유튜브에서 들어보기", search_url)
+
+else:
+    st.info("왼쪽 사이드바에서 장르를 고르고 버튼을 눌러주세요.")
